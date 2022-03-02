@@ -454,11 +454,10 @@ public class SimpleConsoleShop {
 
     public static void main(String[] args) {
 
-
         Product w1 = new Product("Winter Wheels", 50D, 4);
         Product w2 = new Product("Summer Wheels", 40D, 5);
         Product w3 = new Product("Wheels for bicycle", 30D, 4.5);
-        Product w4 = new Product("Bike Wheels", 400D, 4);
+        Product w4 = new Product("Bike Wheels", 40D, 4);
 
         Product f1 = new Product("Apple", 27.49, 5);
         Product f2 = new Product("Mango", 40D, 4);
@@ -489,21 +488,9 @@ public class SimpleConsoleShop {
         armor.addProduct(a3);
         armor.addProduct(a4);
 
-        Product.products.addAll(wheels.getProductList());
-        Product.products.addAll(fruits.getProductList());
-        Product.products.addAll(armor.getProductList());
-
         Category.categories.add(wheels);
         Category.categories.add(fruits);
         Category.categories.add(armor);
-
-        for (int i = 0; i < Category.categories.size(); i++) {
-            for (int j = 0; j < 4; j++) {
-                Category category = Category.categories.get(i);
-                category.addProduct(Product.products.get(j));
-                Category.categories.set(i, category);
-            }
-        }
 
         Category.showCategories();
 
