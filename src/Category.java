@@ -1,4 +1,10 @@
+import wagu.Block;
+import wagu.Board;
+import wagu.Table;
+
+import java.awt.desktop.AboutEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Category {
@@ -42,20 +48,48 @@ public class Category {
             return;
         }
         int i = 0;
-        System.out.println("List of categories:");
-        for (Category c : categories) {
-            System.out.println("Number | Name");
-            System.out.printf("%-7n| %s", i, c.name);
-            int j = 0;
-            for (Product p : c.productList) {
-                if (c.productList.size() == 0) {
-                    System.out.printf("%-7s| Empty Category...", "");
-                    break;
-                }
 
-                System.out.println("\t\t" + j++ +". " + p.getName() + " " + p.getPrice() + " " + p.getRating());
+
+
+        String tHeader = "LIST OF CATEGORIES";
+
+        List<String> categoryHeaders = Arrays.asList("NUMBER", "NAME");
+        List<List<String>> categoryData = new ArrayList<>();
+
+        Board board = new Board(76);
+        board.setInitialBlock(new Block(board, 74, 1, tHeader).setDataAlign(Block.DATA_CENTER));
+        board.appendTableTo(0, Board.APPEND_BELOW, new Table(board, categoryHeaders, ))
+
+        for (Category c : Category.categories) {
+            List<String> productHeaders = Arrays.asList("NUMBER", "NAME", "PRICE", "RATING");
+            List<List<String>> productData = new ArrayList<>();
+            for (Product p : c.productList) {
+                productData.add(Arrays.asList(
+                        String.valueOf(i++),
+                        p.getName(),
+                        String.valueOf(p.getPrice()),
+                        String.valueOf(p.getRating())));
             }
+            Table productTable = new Table(board, 76, productHeaders, productData);
+            board.appendTableTo(0, Board.APPEND_BELOW, productTable.setColWidthsList());
         }
+
+        board.build();
+        System.out.println(board.getPreview());
+
+//        for (Category c : categories) {
+//            System.out.println("Number | Name");
+//            System.out.printf("%-7n| %s", i, c.name);
+//            int j = 0;
+//            for (Product p : c.productList) {
+//                if (c.productList.size() == 0) {
+//                    System.out.printf("%-7s| Empty Category...", "");
+//                    break;
+//                }
+//
+//                System.out.println("\t\t" + j++ +". " + p.getName() + " " + p.getPrice() + " " + p.getRating());
+//            }
+//        }
     }
 
 }

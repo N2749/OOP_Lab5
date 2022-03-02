@@ -1,4 +1,9 @@
+import wagu.Block;
+import wagu.Board;
+import wagu.Table;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Product {
@@ -43,15 +48,37 @@ public class Product {
     }
 
     public static void showProducts() {
-        int i = 0;
         if (products == null) {
             System.out.println("No Products yet.");
             return;
         }
+        int i = 0;
+        String tHeader = "LIST OF PRODUCTS";
+        List<String> headers = Arrays.asList("NUMBER", "NAME", "PRICE", "RATING");
+        List<List<String>> tData = new ArrayList<>();
         for (Product p : Product.products) {
-            System.out.println("List of products:");
-            System.out.println("\tname price rating");
-            System.out.println("\t" + i++ +". " + p.name + " " + p.price + " " + p.getRating());
+            tData.add(Arrays.asList(
+                    String.valueOf(i++),
+                    p.name,
+                    String.valueOf(p.price),
+                    String.valueOf(p.getRating())));
+
         }
+
+        Board board = new Board(67);
+
+        List<Integer> colAlignList = Arrays.asList(
+                Block.DATA_CENTER,
+                Block.DATA_MIDDLE_LEFT,
+                Block.DATA_CENTER,
+                Block.DATA_CENTER);
+
+        List<Integer> colWidths = Arrays.asList(8, 39, 7, 8);
+
+        board.setInitialBlock(new Block(board, 65, 1, tHeader).setDataAlign(Block.DATA_CENTER));
+        board.appendTableTo(0, Board.APPEND_BELOW, new Table(board, 67, headers, tData).setColWidthsList(colWidths).setColAlignsList(colAlignList));
+
+        board.build();
+        System.out.println(board.getPreview());
     }
 }

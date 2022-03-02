@@ -7,8 +7,6 @@ public class SimpleConsoleShop {
     static User currentUser;
 
     private static void createAdmin() {
-        System.out.println(" |");
-        System.out.println("_|");
         System.out.println("Enter login for the admin.");
         String login = scanner.nextLine();
         System.out.println("Enter password for the admin.");
@@ -507,18 +505,20 @@ public class SimpleConsoleShop {
             }
         }
 
-        createAdmin();
+        Category.showCategories();
 
-        start();
-
-        while (User.isLoggedIn()) {
-            if (Admin.isAdmin(currentUser)) {
-                adminPanel();
-            } else {
-                userPanel();
-            }
-        }
-
+//        createAdmin();
+//
+//        start();
+//
+//        while (User.isLoggedIn()) {
+//            if (Admin.isAdmin(currentUser)) {
+//                adminPanel();
+//            } else {
+//                userPanel();
+//            }
+//        }
+//
     }
 
 }
