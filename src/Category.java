@@ -10,7 +10,8 @@ import java.util.List;
 public class Category {
     private String name;
     final private ArrayList<Product> productList;
-    static List<Category> categories = new ArrayList<>();;
+    static List<Category> categories = new ArrayList<>();
+    ;
 
     public Category(String name) {
         this.name = name;
@@ -50,19 +51,40 @@ public class Category {
         int i = 0;
 
 
-
         String tHeader = "LIST OF CATEGORIES";
 
         List<String> categoryHeaders = Arrays.asList("NUMBER", "NAME");
         List<List<String>> categoryData = new ArrayList<>();
 
-        Board board = new Board(76);
-        board.setInitialBlock(new Block(board, 74, 1, tHeader).setDataAlign(Block.DATA_CENTER));
-        board.appendTableTo(0, Board.APPEND_BELOW, new Table(board, categoryHeaders, ))
+        Board board = new Board(83);
+        Block tableHeader = new Block(board, 81, 1, tHeader);
+        board.setInitialBlock(tableHeader.setDataAlign(Block.DATA_CENTER));
+        Block categoryNumber = new Block(board, 8, 1, "Number");
+        tableHeader.setBelowBlock(categoryNumber.setDataAlign(Block.DATA_CENTER));
+        Block categoryName = new Block(board, 72, 1, "Name");
+        categoryNumber.setRightBlock(categoryName.setDataAlign(Block.DATA_CENTER));
+
+//        List<Integer> colAlignList = Arrays.asList(
+//                Block.DATA_CENTER,
+//                Block.DATA_MIDDLE_LEFT,
+//                Block.DATA_CENTER,
+//                Block.DATA_CENTER);
+//
+//        List<Integer> colWidths = Arrays.asList(8, 8, 39, 7, 8);
 
         for (Category c : Category.categories) {
+
+            Block nextCategoryNumber = new Block(board, 8, c.productList.size() - 1, String.valueOf(i++));
+            categoryNumber.setBelowBlock(nextCategoryNumber.setDataAlign(Block.DATA_TOP_MIDDLE));
+            categoryNumber = nextCategoryNumber;
+
+            Block nextCategoryName = new Block(board, 72,  1, String.valueOf(c.name));
+            categoryName.setBelowBlock(nextCategoryName.setDataAlign(Block.DATA_CENTER));
+            categoryName = nextCategoryName;
+
             List<String> productHeaders = Arrays.asList("NUMBER", "NAME", "PRICE", "RATING");
             List<List<String>> productData = new ArrayList<>();
+            List<Integer> productColumnWidth = Arrays.asList(8, 8, 39, 7, 8);
             for (Product p : c.productList) {
                 productData.add(Arrays.asList(
                         String.valueOf(i++),
@@ -70,8 +92,7 @@ public class Category {
                         String.valueOf(p.getPrice()),
                         String.valueOf(p.getRating())));
             }
-            Table productTable = new Table(board, 76, productHeaders, productData);
-            board.appendTableTo(0, Board.APPEND_BELOW, productTable.setColWidthsList());
+            //board.appendTableTo(0, Board.APPEND_BELOW, new Table(board, 74, categoryHeaders, categoryData));
         }
 
         board.build();
