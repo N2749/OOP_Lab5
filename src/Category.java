@@ -52,7 +52,7 @@ public class Category {
         List<String> categoryHeaders = Arrays.asList("NUMBER", "NAME");
         List<List<String>> categoryData = new ArrayList<>();
 
-        Board board = new Board(76);
+        Board board = new Board(200);
         Block tableHeader = new Block(board, 74, 1, "LIST OF CATEGORIES");
         board.setInitialBlock(tableHeader.setDataAlign(Block.DATA_CENTER));
         Block categoryNumber = new Block(board, 8, 1, "NUMBER");
@@ -68,51 +68,38 @@ public class Category {
         );
         int i = 0;
         int k = 5;
-//        for (Category c : Category.categories) {
+        for (Category c : Category.categories) {
 
-        Block nextCategoryNumber = new Block(board, 8, Category.categories.get(0).productList.size() + 2 + Category.categories.get(0).productList.size(), "" + i++);
-        categoryNumber.setBelowBlock(nextCategoryNumber.setDataAlign(Block.DATA_TOP_MIDDLE));
-        categoryNumber = nextCategoryNumber;
+            Block nextCategoryNumber = new Block(board, 8, 6 + c.productList.size(), String.valueOf(i++));
+            categoryNumber.setBelowBlock(nextCategoryNumber.setDataAlign(Block.DATA_CENTER));
+            categoryNumber = nextCategoryNumber;
 
-        Block nextCategoryName = new Block(board, 65, 1, String.valueOf(Category.categories.get(0).name));
-        categoryName.setBelowBlock(nextCategoryName.setDataAlign(Block.DATA_CENTER));
-        categoryName = nextCategoryName;
+            Block nextCategoryName = new Block(board, 65, 1, String.valueOf(c.name));
+            categoryNumber.setRightBlock(nextCategoryName.setDataAlign(Block.DATA_CENTER));
+            categoryName = nextCategoryName;
 
-        Block productTableHeader = new Block(board, 65, 1, "LIST OF PRODUCTS");
-        categoryName.setBelowBlock(productTableHeader.setDataAlign(Block.DATA_CENTER));
-        categoryName = nextCategoryName;
+            Block productTableHeader = new Block(board, 65, 1, "LIST OF PRODUCTS");
+            categoryName.setBelowBlock(productTableHeader.setDataAlign(Block.DATA_CENTER));
+            categoryName = nextCategoryName;
 
-        List<String> productHeaders = Arrays.asList("NUMBER", "NAME", "PRICE", "RATING");
-        List<List<String>> productData = new ArrayList<>();
-        List<Integer> productColumnWidth = Arrays.asList(8, 39, 7, 8);
-        int j = 0;
-        for (Product p : Category.categories.get(0).productList) {
-            productData.add(Arrays.asList(
-                    String.valueOf(j++),
-                    p.getName(),
-                    String.valueOf(p.getPrice()),
-                    String.valueOf(p.getRating())));
+            List<String> productHeaders = Arrays.asList("NUMBER", "NAME", "PRICE", "RATING");
+            List<List<String>> productData = new ArrayList<>();
+            List<Integer> productColumnWidth = Arrays.asList(8, 39, 7, 8);
+            int j = 0;
+            for (Product p : c.productList) {
+                productData.add(Arrays.asList(
+                        String.valueOf(j++),
+                        p.getName(),
+                        String.valueOf(p.getPrice()),
+                        String.valueOf(p.getRating())));
+            }
+            board.appendTableTo(k, Board.APPEND_BELOW, new Table(board, 65, productHeaders, productData, productColumnWidth).setColAlignsList(productAlign));
+            k += 11;
         }
-        board.appendTableTo(k, Board.APPEND_BELOW, new Table(board, 65, productHeaders, productData, productColumnWidth).setColAlignsList(productAlign));
-        k += (Category.categories.get(0).productList.size() + 1) * 4;
-//        }
 
         board.build();
         System.out.println(board.getPreview());
 
-//        for (Category c : categories) {
-//            System.out.println("Number | Name");
-//            System.out.printf("%-7n| %s", i, c.name);
-//            int j = 0;
-//            for (Product p : c.productList) {
-//                if (c.productList.size() == 0) {
-//                    System.out.printf("%-7s| Empty Category...", "");
-//                    break;
-//                }
-//
-//                System.out.println("\t\t" + j++ +". " + p.getName() + " " + p.getPrice() + " " + p.getRating());
-//            }
-//        }
     }
 
 }

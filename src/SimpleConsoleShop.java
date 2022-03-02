@@ -468,6 +468,7 @@ public class SimpleConsoleShop {
         Product a2 = new Product("Leggings", 100, 5);
         Product a3 = new Product("Gloves", 100, 5);
         Product a4 = new Product("Helmet", 100, 5);
+        Product a5 = new Product("Shield", 200, 3);
 
         Category wheels = new Category("Wheels");
         Category fruits = new Category("Fruits");
@@ -482,15 +483,33 @@ public class SimpleConsoleShop {
         fruits.addProduct(f2);
         fruits.addProduct(f3);
         fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
+        fruits.addProduct(f4);
 
         armor.addProduct(a1);
         armor.addProduct(a2);
         armor.addProduct(a3);
         armor.addProduct(a4);
-
-        Category.categories.add(wheels);
-        Category.categories.add(fruits);
-        Category.categories.add(armor);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
+        armor.addProduct(a5);
 
         Category.showCategories();
 
